@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Ryan Martin -->
+		
+		<meta charset="utf-8">
+		<title>Hunger Quest</title>
+		</head>
+		<body style="background-color:pink;">
+		<h1 style="font-family: verdana; text-align:center; color:orange"> Hunger Quest</h1>
+		
+		<h5 style= "font-family:timesnewroman; color:blue"><a href="mailto:ryan.martin3@marist.edu">Link if there are any questions or problems:</a></h5>
+			 <script type="text/javascript">
+			 
+         // Global Variables     
+         var currentLoc = 0;
+         var score = 0;
+         var navigationErrorCount = 0;
+         var sarcasmThreshold = 5;
+         
+         var hasVisitedLoc0 = false;
+         var hasVisitedLoc1 = false;
+         var hasVisitedLoc2 = false;
+         var hasVisitedLoc3 = false;
+         var hasVisitedLoc4 = false;
+                  
+         // Initialization
+         function init() {
+            look();
+         }
+         
+         // Directional Buttons
+         function btnNorth_click() {
+            if (currentLoc === 3) {
+               currentLoc = 4;
+               look();               
+            } else { navigationError(); 
+             
+            }            
+         }
+
+         function btnSouth_click() {
+             if (currentLoc === 1) {
+                currentLoc = 2;
+                look();               
+             } else { navigationError(); 
+              
+             }            
+          }
+         
+         function btnEast_click() {
+             if (currentLoc === 0) {
+                currentLoc = 1;
+                look();               
+             } else { navigationError(); 
+              
+             }            
+          }
+         
+         function btnWest_click() {
+             if (currentLoc === 2) {
+                currentLoc = 3;
+                look();               
+             } else { navigationError(); 
+              
+             }            
+          }
+              
+         // Story / Locale Functions
+         function look() {
+            var desc = "";
+            switch(currentLoc) {
+               case 0: desc = "0. You are hungry in the suburbs and you need to find food. You want to eat pizza.";
+                       break;
+               case 1: desc = "1. You are walking up the street.";
+                       break; 
+               case 2: desc = "2. You cut down a dirt road for a shortcut.";
+                       break;
+               case 3: desc = "3. The shortcut leads you to a pizza parlor.";
+                       break;
+               case 4: desc = "4. You enter the pizza parlor and now enojy delicious pizza.";
+                       break;
+               default: desc = "You cannot go that way";
+            }
+            checkScore();
+            desc = desc + "\n" + "Score: " + score ;
+            displayMessage(desc);
+         }
+
+         function navigationError() {
+            navigationErrorCount = navigationErrorCount + 1;
+            if (navigationErrorCount < sarcasmThreshold) {
+               displayMessage("Wrong Way!");
+            } else {
+               displayMessage("You starved!");
+            }            
+         }
+
+         function checkScore() {
+            if (! hasVisitedLoc0) {            
+               if (currentLoc === 0) {
+                  score = score + 5;
+                  hasVisitedLoc0 = true;
+               }
+            } else if ( (! hasVisitedLoc1) && (currentLoc === 1) ) {            
+                  score = score + 5;
+                  hasVisitedLoc1 = true;
+            } else if ( (! hasVisitedLoc2) && (currentLoc === 2) ) {            
+                  score = score + 5;
+                  hasVisitedLoc2 = true;
+            } else if ( (! hasVisitedLoc3) && (currentLoc === 3) ) {            
+                  score = score + 5;
+                  hasVisitedLoc3 = true;
+            } else if ( (! hasVisitedLoc4) && (currentLoc === 4) ) {            
+                  score = score + 5;
+                  hasVisitedLoc4 = true;
+            }            
+         }
+
+         // Utility Functions
+         function displayMessage(msg) {
+            var target = document.getElementById("taMain");
+            target.value = msg + "\n\n" + target.value;
+         }
+      </script>
+   </head>
+   <body onload="init();">
+       <textarea id="taMain" rows="10" cols="30"></textarea>            
+       
+       <br>
+       <input type="button" 
+              value="North"
+              onclick="btnNorth_click();">
+       <input type="button" 
+              value="South"
+              onclick="btnSouth_click();">
+       <input type="button" 
+              value="East"
+              onclick="btnEast_click();">
+       <input type="button" 
+              value="West"
+              onclick="btnWest_click();">   
+   </body>
+</html>
