@@ -37,16 +37,18 @@
                look();               
             }else if(currentLoc === 4) {
             	currentLoc = 5;
+            	document.getElementById("southBtn").disabled = true;
             	look();
+            	document.getElementById("southBtn").disabled = fasle;
             } else { navigationError(); 
-             
             }            
          }
 
          function btnSouth_click() {
              if (currentLoc === 1) {
                 currentLoc = 2;
-                look();               
+                look();  
+                document.getElementById("eastBtn").disabled = true;             
              } else { navigationError(); 
               
              }            
@@ -64,7 +66,8 @@
          function btnWest_click() {
              if (currentLoc === 2) {
                 currentLoc = 3;
-                look();               
+                look();    
+                document.getElementById("eastBtn").disabled = false;           
            	 }else if(currentLoc === 5) {
             	currentLoc = 6;
             	look();
@@ -162,16 +165,20 @@
        <br>
        <input type="button" 
               value="North"
-              onclick="btnNorth_click();">
+              onclick="btnNorth_click();"
+              id="northBtn">
        <input type="button" 
               value="South"
-              onclick="btnSouth_click();">
+              onclick="btnSouth_click();"
+              id="southBtn">
        <input type="button" 
               value="East"
-              onclick="btnEast_click();">
+              onclick="btnEast_click();"
+              id="eastBtn">
        <input type="button" 
               value="West"
-              onclick="btnWest_click();">   
+              onclick="btnWest_click();"
+              id="westBtn">
               
        <br>
        Command:
