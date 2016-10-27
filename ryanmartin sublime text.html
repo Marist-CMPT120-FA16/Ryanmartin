@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Ryan Martin -->
+		
+		<meta charset="utf-8">
+		<title>Hunger Quest</title>
+		</head>
+		<body style="background-color:pink;">
+		<h1 style="font-family: verdana; text-align:center; color:orange"> Hunger Quest</h1>
+		
+		<h5 style= "font-family:timesnewroman; color:blue"><a href="mailto:ryan.martin3@marist.edu">Link if there are any questions or problems:</a></h5>
+			 <script type="text/javascript" src="/Users/ryanmartin/Desktop/Sophmore year first semester/cmpt /location.js"></script>
+       <script type="text/javascript">
+			 
+         // Global Variables     
+         var currentLoc = 0;
+         var score = 0;
+         var navigationErrorCount = 0;
+         var sarcasmThreshold = 5;
+
+         var cornTaken = false;
+         var waterTaken = false;
+         var pizzaTaken = false;
+         
+         var hasVisitedLoc0 = false;
+         var hasVisitedLoc1 = false;
+         var hasVisitedLoc2 = false;
+         var hasVisitedLoc3 = false;
+         var hasVisitedLoc4 = false;
+         var hasVisitedLoc5 = false;
+         var hasVisitedLoc6 = false;
+         var hasVisitedLoc7 = false;
+         var hasVisitedLoc7 = false;
+         var hasVisitedLoc8 = false;
+         var hasVisitedLoc9 = false;         
+         // Initialization
+         function init() {
+            look();
+         }
+         
+         // Directional Buttons
+         function btnNorth_click() {
+            if (currentLoc === 3) {
+               currentLoc = 4;
+               look();               
+            }else if(currentLoc === 4) {
+            	currentLoc = 5;
+            	document.getElementById("southBtn").disabled = true;
+            	look();
+            }else if(currentLoc === 8) {
+              currentLoc = 9;
+              look();
+            } else { 
+              navigationError(); 
+            }            
+         }
+
+         function btnSouth_click() {
+             if (currentLoc === 1) {
+                currentLoc = 2;
+                look();  
+                document.getElementById("eastBtn").disabled = true;
+             }else if(currentLoc === 7) {
+              currentLoc = 8;
+              look();
+                             
+             } else { navigationError(); 
+              
+             }            
+          }
+         
+         function btnEast_click() {
+             if (currentLoc === 0) {
+                currentLoc = 1;
+                look();     
+             }else if(currentLoc === 6) {
+              currentLoc = 7;
+              look();
+              document.getElementById("southBtn").disabled = false;   
+             } else { navigationError(); 
+              
+             }            
+          }
+         
+         function btnWest_click() {
+             if (currentLoc === 2) {
+                currentLoc = 3;
+                look();    
+                document.getElementById("eastBtn").disabled = false;           
+           	 }else if(currentLoc === 5) {
+            	currentLoc = 6;
+            	look();
+             } else { 
+             	navigationError();
+              
+             }            
+          }
+              
+         // Story / Locale Functions
+         function look() {
+            var desc = "";
+            switch(currentLoc) {
+               case 0: message = start();
+                       break;
+               case 1: message = street();
+                       break; 
+               case 2: message = dirtroad();
+                       break;
+               case 3: message = shortcut();
+                       break;
+               case 4: message = pizzaparlor();
+                       break;
+               case 5: message = outsidepizzaparlor();
+					             break;
+			         case 6: message = tunnel();
+			   		           break; 	
+               case 7: message = bridge();
+                       break;
+               case 8: message = cornfield();
+                       break;
+               case 9: message = river();   
+                       break;                        
+               default: message = "You cannot go that way";
+            }
+            checkScore();
+            desc = desc + "\n" + "Score: " + score ;
+            displayMessage(message);
+            displayMessage(desc);
+         }
+    function appendItem(input){
+        var list = document.getElementById("itemList");
+        var entry = document.createElement('li');
+        entry.appendChild(document.createTextNode(input));
+        list.appendChild(entry);
+      }
+      function take(input){
+        if(currentLoc == 4 && input.toLowerCase() == 'pizza' && pizzaTaken == false){
+          appendItem(input);
+          pizzaTaken = true;
+        }else if(currentLoc == 8 && input.toLowerCase() == 'corn' && cornTaken == false){
+          appendItem(input);
+          cornTaken = true;
+        }else if(currentLoc == 9 && input.toLowerCase() == 'fresh water' && waterTaken == false){
+          appendItem(input);
+          waterTaken = true;
+        }else{
+          displayMessage("Item does not exist");
+        }
+      }
+         
+         function navigationError() {
+            navigationErrorCount = navigationErrorCount + 1;
+            if (navigationErrorCount < sarcasmThreshold) {
+               displayMessage("Wrong Way!");
+            } else {
+               displayMessage("You starved!");
+            }            
+         }
+
+         function checkScore() {
+            if (! hasVisitedLoc0) {            
+               if (currentLoc === 0) {
+                  score = score + 5;
+                  hasVisitedLoc0 = true;
+               }
+            } else if ( (! hasVisitedLoc1) && (currentLoc === 1) ) {            
+                  score = score + 5;
+                  hasVisitedLoc1 = true;
+            } else if ( (! hasVisitedLoc2) && (currentLoc === 2) ) {            
+                  score = score + 5;
+                  hasVisitedLoc2 = true;
+            } else if ( (! hasVisitedLoc3) && (currentLoc === 3) ) {            
+                  score = score + 5;
+                  hasVisitedLoc3 = true;
+            } else if ( (! hasVisitedLoc4) && (currentLoc === 4) ) {            
+                  score = score + 5;
+                  hasVisitedLoc4 = true;
+            } else if ( (! hasVisitedLoc5) && (currentLoc === 5) ) {            
+                  score = score + 5;
+                  hasVisitedLoc5 = true;
+            } else if ( (! hasVisitedLoc6) && (currentLoc === 6) ) {            
+                  score = score + 5;
+                  hasVisitedLoc6 = true;   
+            } else if ( (! hasVisitedLoc7) && (currentLoc === 7) ) {
+                 
+                  score = score + 5;
+                  hasVisitedLoc7 = true;
+            } else if ( (! hasVisitedLoc8) && (currentLoc === 8) ) {
+                 
+                  score = score + 5;
+                  hasVisitedLoc8 = true;
+            } else if ( (! hasVisitedLoc9) && (currentLoc === 9) ) {              
+            }            
+         }
+
+         // Utility Functions
+         function displayMessage(msg) {
+            var target = document.getElementById("taMain");
+            target.value = msg + "\n\n" + target.value;
+         }
+
+         function help(){
+          displayMessage("N, S, W, E are your commands to direct yourself. Remember to take the items you find.");
+         }
+         function btnGo_click(){
+         	var input = document.getElementById('txtCommand').value;
+         	if(input == 'n' || input == 'N'){
+         		btnNorth_click(); // Runs North command 
+         	}else if(input == 's' || input == 'S'){
+         		btnSouth_click(); // Runs South command
+         	}else if(input == 'e' || input == 'E'){
+         		btnEast_click(); // Runs East command	
+         	}else if(input == 'w' || input == 'W'){
+         		btnWest_click(); // Runs West command
+     		  }else if(input.toLowerCase() == "help"){
+            help();
+          }else if(input.substring(0,4).toLowerCase() == "take"){
+            take(input.substring(5,input.length));
+          }else{
+            displayMessage("Invalid command.");
+          }
+ 		}				
+      
+      </script>
+   </head>
+   <body onload="init();">
+       <textarea id="taMain" rows="10" cols="30"></textarea>            
+ 
+       
+       <br>
+       <input type="button" 
+              value="North"
+              onclick="btnNorth_click();"
+              id="northBtn">
+       <input type="button" 
+              value="South"
+              onclick="btnSouth_click();"
+              id="southBtn">
+       <input type="button" 
+              value="East"
+              onclick="btnEast_click();"
+              id="eastBtn">
+       <input type="button" 
+              value="West"
+              onclick="btnWest_click();"
+              id="westBtn">
+              
+       <br>
+       Command:
+       <input type="text"
+       		  id = "txtCommand"
+       		  name="txtCommand">
+       		  
+       <input type="button"
+       		  value= "Go"
+       		  onclick="btnGo_click();" />		
+
+       <br>
+   <h2>Items:</h2>  
+   <ol id="itemList">
+   </ol>
+   <img src="ruout.png">
+   </body>
+</html>
