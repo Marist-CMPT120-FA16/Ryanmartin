@@ -34,7 +34,42 @@
          var hasVisitedLoc7 = false;
          var hasVisitedLoc8 = false;
          var hasVisitedLoc9 = false;         
-         // Initialization
+
+         function Location(id,name,description,item){
+          this.id=id;
+          this.name=name;
+          this.description=description;
+          this.item=item;
+          this.toString=function() {return "id:" + this.id + " location: " + this.name;};
+         }
+
+         var start_loc = new Location(0,'start', start(), ' ');
+         var street_loc = new Location(1,'street', street(), ' ');
+         var dirtroad_loc = new Location(2, 'dirtroad', dirtroad(), ' ');
+         var shortcut_loc = new Location(3, 'shortcut', shortcut(), ' ');
+         var pizzaparlor_loc = new Location(4, 'pizzaparlor', pizzaparlor(), ' ');
+         var outsidepizzaparlor_loc = new Location(5, 'outsidepizzaparlor', outsidepizzaparlor(),' ');
+         var tunnel_loc = new Location(6, 'tunnel', tunnel(),' ');
+         var bridge_loc = new Location(7, 'bridge', bridge(),' ');
+         var cornfield_loc = new Location(8, 'cornfield', cornfield(),' ');
+         var river_loc = new Location(9, 'river', river(),' ');
+
+         var locations = [start_loc, street_loc, dirtroad_loc, shortcut_loc, pizzaparlor_loc, outsidepizzaparlor_loc, tunnel_loc, bridge_loc, cornfield_loc, river_loc]
+         
+         function Item(id,name,description){
+          this.id=id;
+          this.name=name;
+          this.description=description;
+          this.toString=function() {return "id:" + this.id + " item: " + this.name;};
+         }
+
+         var corn = new Item(0,'corn', 'Cornstalk');
+         var pizza = new Item(1,'pizza', 'Pizzaslice');
+         var water = new Item(2, 'water', 'Freshwater');
+
+         var items = [];
+
+// Initialization
          function init() {
             look();
          }
@@ -42,14 +77,14 @@
          // Directional Buttons
          function btnNorth_click() {
             if (currentLoc === 3) {
-               currentLoc = 4;
+               currentLoc = locations[4].id;
                look();               
             }else if(currentLoc === 4) {
-            	currentLoc = 5;
+            	currentLoc = locations[5].id;
             	document.getElementById("southBtn").disabled = true;
             	look();
             }else if(currentLoc === 8) {
-              currentLoc = 9;
+              currentLoc = locations[9].id;
               look();
             } else { 
               navigationError(); 
@@ -58,11 +93,11 @@
 
          function btnSouth_click() {
              if (currentLoc === 1) {
-                currentLoc = 2;
+                currentLoc = locations[2].id;
                 look();  
                 document.getElementById("eastBtn").disabled = true;
              }else if(currentLoc === 7) {
-              currentLoc = 8;
+              currentLoc = locations[8].id;
               look();
                              
              } else { navigationError(); 
@@ -72,10 +107,10 @@
          
          function btnEast_click() {
              if (currentLoc === 0) {
-                currentLoc = 1;
+                currentLoc = locations[1].id;
                 look();     
              }else if(currentLoc === 6) {
-              currentLoc = 7;
+              currentLoc = locations[7].id;
               look();
               document.getElementById("southBtn").disabled = false;   
              } else { navigationError(); 
@@ -85,11 +120,11 @@
          
          function btnWest_click() {
              if (currentLoc === 2) {
-                currentLoc = 3;
+                currentLoc = locations[3].id;
                 look();    
                 document.getElementById("eastBtn").disabled = false;           
            	 }else if(currentLoc === 5) {
-            	currentLoc = 6;
+            	currentLoc = locations[6].id;
             	look();
              } else { 
              	navigationError();
@@ -101,25 +136,25 @@
          function look() {
             var desc = "";
             switch(currentLoc) {
-               case 0: message = start();
+               case 0: message = locations[0].description;
                        break;
-               case 1: message = street();
+               case 1: message = locations[1].description;
                        break; 
-               case 2: message = dirtroad();
+               case 2: message = locations[2].description;
                        break;
-               case 3: message = shortcut();
+               case 3: message = locations[3].description;
                        break;
-               case 4: message = pizzaparlor();
+               case 4: message = locations[4].description;
                        break;
-               case 5: message = outsidepizzaparlor();
+               case 5: message = locations[5].description;
 					             break;
-			         case 6: message = tunnel();
+			         case 6: message = locations[6].description;
 			   		           break; 	
-               case 7: message = bridge();
+               case 7: message = locations[7].description;
                        break;
-               case 8: message = cornfield();
+               case 8: message = locations[8].description;
                        break;
-               case 9: message = river();   
+               case 9: message = locations[9].description;   
                        break;                        
                default: message = "You cannot go that way";
             }
@@ -136,14 +171,17 @@
       }
       function take(input){
         if(currentLoc == 4 && input.toLowerCase() == 'pizza' && pizzaTaken == false){
-          appendItem(input);
+          appendItem(pizza.name);
           pizzaTaken = true;
+          items.push(pizza);
         }else if(currentLoc == 8 && input.toLowerCase() == 'corn' && cornTaken == false){
-          appendItem(input);
+          appendItem(corn.name);
           cornTaken = true;
+          items.push(corn);
         }else if(currentLoc == 9 && input.toLowerCase() == 'fresh water' && waterTaken == false){
-          appendItem(input);
+          appendItem(water.name);
           waterTaken = true;
+          items.push(water);
         }else{
           displayMessage("Item does not exist");
         }
@@ -155,6 +193,10 @@
                displayMessage("Wrong Way!");
             } else {
                displayMessage("You starved!");
+               document.getElementById("westBtn").disabled = true;
+               document.getElementById("northBtn").disabled = true;
+               document.getElementById("eastBtn").disabled = true;
+               document.getElementById("southBtn").disabled = true;
             }            
          }
 
