@@ -253,7 +253,7 @@
          }
 
          function help(){
-          displayMessage("N, S, W, E are your commands to direct yourself. Remember to take the items you find.");
+          displayMessage("N, S, W, E are your commands to direct yourself. Remember to 'take' the items you find.");
          }
          function btnGo_click(){
          	var input = document.getElementById('txtCommand').value;
